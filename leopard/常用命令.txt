@@ -1,0 +1,17 @@
+
+启动C2:
+sudo ./teamserver 192.168.30.128 123456
+
+启动脚本控制台：
+./agscript 192.168.30.128 50050 TonyD0g 123456
+
+运行脚本：
+load test.cna 
+
+reload test.cna
+
+
+
+
+
+

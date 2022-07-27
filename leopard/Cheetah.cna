@@ -1,0 +1,167 @@
+# 菜单项
+
+popup CheetahOwn {
+ 
+# 本机信息搜集 模块
+ menu "本机信息搜集" {
+
+        item "获取本机网络配置信息"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"ipconfig /all"));
+        }
+        item "查询操作系统和版本信息"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],'systeminfo | findstr /B /C:"OS 名称" /C:"OS 版本"'));   
+        }
+        item "查看系统体系结构"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"echo %PROCESSOR_ARCHITECTURE%"));   
+        }
+        item "查看安装的软件及版本/路径"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"wmic product get name,version"));   
+        }
+        item "查询本机服务信息"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"wmic service list brief"));   
+        }
+        item "查询进程列表"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"tasklist"));
+        }
+        item "查看启动程序信息"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"wmic startup get command,caption"));
+        }
+        item "查看计划任务"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"schtasks /query /fo LIST /v"));
+        }
+        item "查看主机开机时间"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"net statistics workstation"));
+        }
+        item "查看用户"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"net user"));
+        }
+        
+        item "查看当前在线用户"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"query user || qwinsta"));
+        }
+
+        item "列出客户端之间的会话"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"net session"));
+        }
+
+
+        item "查看本机端口开放情况"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"netstat -ano"));
+        }
+
+        item "查询补丁信息"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"systeminfo | findstr KB"));
+        }
+
+        item "查询本机共享列表"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"net share"));
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"wmic share get name,path,status"));
+        }
+
+        item "查询路由表及所有可用接口的ARP缓冲表"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"route print"));
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"arp -a"));
+        }
+
+        item "查看防火墙配置"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"netsh firewall show config"));
+        }
+
+        item "关闭防火墙"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"netsh firewall set opmode disable"));
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"netsh advfirewall set allprofile state off"));
+        }
+
+        item "查看防火墙配置"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"netsh firewall show config"));
+        }
+
+        item "查看代理配置情况"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],'reg query "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings"'));
+        }
+
+        item "查询并开启远程桌面连接服务"{
+           binput(beacon_ids()[0],bshell(beacon_ids()[0],'REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal
+Server\WinStations\RDP-Tcp" /V PortNumber'));
+        }
+    
+        
+}
+
+}
+ 
+
+
+
+popup CheetahDomain {
+    # 域内信息搜集 模块
+    menu "域内信息搜集" {
+		item "获取域SID"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"whoami /all"));
+        }
+
+        item "查询域内用户"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"net user /domain"));
+        }
+
+        item "查看域用户的详细信息"{
+            prompt_text("指定一个域用户:", "", lambda({
+                bshell(@ids, "net user $1 /domain");
+            }, @ids => $1));
+        }
+
+        item "查看系统详细信息"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],'systeminfo | findstr /B /C:"登录服务器"'));
+        }
+
+        item "查询当前登录域及登录用户信息"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"net group workstation"));
+        }
+
+        item "查询域列表"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"net view /domain"));
+        }
+
+        item "查询域管理员列表"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],'net group "domain admins" /domain'));
+        }
+
+        item "查看域内时间/判断主域"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"net time /domain"));
+        }
+
+        item "探测域内存活主机"{
+            # icmp 探测
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],'for /L %I in (1,1,254) DO @ping -w 1 -n 1 192.168.1.%I | findstr "TTL="'));
+        }
+
+        item "查看登陆本机的域管理员"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"net localgroup administrators /domain"));
+        }
+
+        item "查看域内所有用户组列表"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"net group /domain"));
+        }
+
+        item "查看主域控制器"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"netdom query pdc"));
+        }
+
+        item "查看所有域控制器列表"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],'net group "Domain Controllers" /domain'));
+        }
+
+        item "查询域信任信息"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"nltest /domain_trusts"));
+        }
+
+        item "查询域密码信息"{
+            binput(beacon_ids()[0],bshell(beacon_ids()[0],"net accounts /domain"));
+        }
+    }
+}
+
+menubar("猎豹-本机","CheetahOwn");
+menubar("猎豹-域","CheetahDomain");
+
+
