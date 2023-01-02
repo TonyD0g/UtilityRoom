@@ -1,0 +1,19 @@
+h2 {
+    color: red;
+    font-size: 25px;
+    text-align: center;
+}
+
+p {
+    text-indent: 2em;
+    line-height: 22px;
+}
+
+hr {
+    border: #FF0000 2px solid;
+}
+
+.suojin {
+    text-indent: 2em;
+    margin-top: -12px;
+}

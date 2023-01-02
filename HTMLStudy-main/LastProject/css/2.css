@@ -1,0 +1,21 @@
+
+ *{margin:0 auto;}
+
+ ul{list-style-type: none;}
+ li{display: inline-block;width: 120px;height: 40px;}
+ li a{text-decoration: none;color: white;line-height: 40px;}
+ li a:hover{background-color: #25a0c5;}
+
+ #var{
+     background-color: #216ead;width: 100%;height: 40px;
+     text-align:center;
+ }
+ #main{width: 1000px}
+ #left{float: left;width: 60%;}
+ #right{float: right;width: 30%;}
+ #size{font: bold 20px/1.5em 宋体;line-height: 3em;text-indent: 1em;}
+ table a{color: red;}
+ #rightdown{margin-top: 50px;}
+ #bottom{font-size:20px;margin-top: 20px;text-align: center;clear: both;}
+ ul{list-style-type: none;text-align: center;}
+ li{display: inline;}

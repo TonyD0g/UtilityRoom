@@ -1,0 +1,148 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: none;
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+/* 浏览器都有自己的默认样式，以上部分为清除浏览器默认样式 */
+
+.person-info {
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  background: #fff;
+  width: 300px;
+  font-size: 12px;
+  margin: 0 auto;
+  margin-top: 15px;
+}
+
+.person-info a {
+  color: #ff830a;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.person-info .verify-info {
+  display: flex;
+  align-items: center;
+  padding-top: 13px;
+  padding-left: calc(16px + 4px);
+  margin-bottom: 10px;
+}
+
+.person-info .verify-info .verify {
+  width: 90px;
+  height: 28px;
+  border-radius: 28px;
+  background: #fdb73d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.person-info .verify-info .verify .vip-icon {
+  width: 14px;
+  height: 16px;
+  background: url(./images/vip.png) no-repeat center bottom/contain;
+  margin-right: 4px;
+}
+
+.person-info .verify-info .verify .text {
+  color: #fff;
+}
+
+.person-info .verify-info .icons {
+  height: 28px;
+  border-left: 1px solid #d9d9d9;
+  margin-left: 10px;
+  padding-left: 11px;
+  display: flex;
+  align-items: center;
+}
+
+.person-info .verify-info .icons .flag-icon {
+  width: 16px;
+  height: 14px;
+  display: block;
+  background: url(./images/flag.png) no-repeat center bottom/contain;
+  margin-right: 10px;
+}
+
+.person-info .verify-info .icons .panda-icon {
+  width: 16px;
+  height: 14px;
+  display: block;
+  background: url(./images/panda.png) no-repeat center bottom/contain;
+}
+
+.person-info .introduce {
+  color: #141414;
+  padding-bottom: 13px;
+  padding-left: calc(16px + 4px);
+}
+
+.person-info .detail {
+  border-top: 1px solid #f2f2f5;
+  border-bottom: 1px solid #d9d9d9;
+  padding: 0 16px;
+}
+
+.person-info .detail .item {
+  padding: 10px 5px 10px 23px;
+  border-top: 1px solid #f2f2f5;
+}
+
+.person-info .detail .item:first-child {
+  border: none;
+  background: url(./images/address.png) no-repeat 0 8px/20px 20px;
+}
+
+.person-info .detail .item:nth-child(2) {
+  background: url(./images/file.png) no-repeat 0 8px/20px 20px;
+}
+
+.person-info .detail .item:nth-child(3) {
+  background: url(./images/link.png) no-repeat 0 8px/20px 20px;
+}
+
+.person-info .detail .item:nth-child(4) {
+  background: url(./images/tag.png) no-repeat 0 8px/20px 20px;
+}
+
+.person-info .more {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.person-info .more .text {
+  font-size: 12px;
+  color: #333;
+  margin-right: 4px;
+}
+
+.person-info .more .right-icon {
+  width: 4px;
+  height: 7px;
+  background: url(./images/arrow-right.png) no-repeat center/contain;
+}

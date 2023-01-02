@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>留言页面</title>
+	<link rel="stylesheet" href="../css/1.css" type="text/css" />
+</head>
+
+<body>
+	<p><a href="../index.html">返回首页</a></p>
+	<form class="Timetablen">
+		<h1>留言信息
+			<span>请留下你的信息.</span>
+		</h1>
+		<label for="name">
+			<span>姓名 :</span></label>
+		<input id="name" type="text" name="name" autofocus placeholder="请输入您的姓名" />
+		
+		<label for="age">
+			<span>年龄 :</span></label>
+		<input id="年龄" type="number" name="age" value="18" />
+		
+		<label for="email">
+			<span>邮箱 :</span></label>
+		<input id="email" type="email" name="email" placeholder="请输入邮箱地址" />
+		
+		<label>
+			<span>电话号码 :</span>
+			<input id="telephone" type="text" required name="telephone" pattern="(186|13[4-9]|15[0-2])\d{8}"
+				title="输入11位数字" maxlength=20 placeholder="请输入电话号码" />
+			
+		</label>
+		<label>
+			<span>联系地址 :</span>
+			<input id="address" type="text" name="address" placeholder="请输入联系地址" />
+			
+		</label>
+		<label>
+			<span>留言 :</span>
+			<textarea id="message" name="message" placeholder="请输入你的建议"></textarea>
+
+			
+		</label>
+
+		
+		<span>&nbsp;</span>
+		<input type="submit" class="button" value="提交" />
+		<span>&nbsp;</span>
+		<input type="reset" class="button" value="重置" />
+		<input type='hidden' name='csrfmiddlewaretoken' value='SfHkbL4feo1G00sJQtbO7TtLN4c2BUwa' />
+	</form>
+	<p id="t1">版权所有</p>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+	#a1 {
+	        width: 810px;
+	        height: 1350px;
+	        border: 20px solid #99CCFF;
+	        margin: 0 auto;
+	        background: url(../img/bgimags.jpg) repeat-y center;
+	        text-align: left;
+	}
+
+	#b1 {
+	        width: 780px;
+	        height: 1340px;
+	        border: 8px solid white;
+	        margin: 0 auto;
+	        padding-left: 10px;
+	}
+
+
+
+	.c1 {
+	        font-size: 20px;
+	        text-indent: 2em;
+	        color: #003399;
+	}
+
+	.d1 {
+	        color: blue;
+	}
+
+	#sub {
+	        text-align: center;
+	}

@@ -1,0 +1,43 @@
+body{
+	padding:0;
+	margin: 0;
+	
+	}
+	table{
+		width: 1000px;
+		border: 0;
+		margin: 100px auto 0;
+		text-align: center;
+		border-collapse: collapse;
+	}
+ table p{
+	font-size: 25px;
+	}
+p{
+	text-align: center;
+	font-size: 23px;
+}
+table tr:nth-of-type(odd){
+	background-color: rgb(230,238,213)	;
+	width:200px ;
+}
+
+table td{
+	border: 2px solid white;
+	line-height: 50px;
+}
+
+table tr:nth-of-type(even){
+	background-color: rgb(205,221,172);
+}
+table td:hover{
+	background: rgb(121, 213, 216);color:white;
+	}
+
+table th{
+		background:rgb(155,187,89) ;
+		font-weight: normal;
+		color: #FFF;
+		border: 5px solid white;
+		line-height: 60px;
+	}

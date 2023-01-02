@@ -1,0 +1,24 @@
+h2 {
+    font-family: "隶书";
+    color: red;
+    font-size: -webkit-xxx-large;
+    text-align: center;
+}
+
+
+.top {
+    color: blue;
+    text-align: center;
+    font-size: larger;
+}
+
+p {
+
+    text-indent: 2em;
+    line-height: 22px;
+
+}
+
+hr {
+    border: #FF0000 2px solid;
+}

@@ -1,0 +1,16 @@
+h2 {
+    font-family: "隶书";
+    font-size: xx-large;
+    color: blue;
+    text-align: center;
+}
+
+
+p {
+    text-align: left;
+    margin: 10px 300px;
+}
+
+hr {
+    border: #FF0000 2px solid;
+}

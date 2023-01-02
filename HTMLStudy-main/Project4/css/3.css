@@ -1,0 +1,58 @@
+.Right {
+    float: right;
+    width: 75%;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.Right img {
+    width: 100%;
+    height: 100%;
+}
+
+.Right-item {
+    text-align: center;
+    width: 32%;
+    padding: 0 1% 50px 1%;
+    height: 350px;
+
+
+}
+
+.Left {
+    float: left;
+    width: 25%;
+}
+
+
+.Menu {
+    position: fixed;
+    background-color: #eee;
+    height: 100%;
+
+}
+
+.Menu a:hover {
+    background-color: #ccc;
+}
+
+.Menu a {
+    color: black;
+    display: block;
+    background-color: #eee;
+    text-decoration: none;
+    padding: 35px;
+
+    border-left: #a39da7 solid 1px;
+    border-top: #a39da7 solid 1px;
+
+}
+
+
+
+.Menu a.active {
+    color: hotpink;
+    background-color: white;
+}

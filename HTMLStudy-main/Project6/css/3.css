@@ -1,0 +1,26 @@
+a{
+    color: white;
+    font-size: 30px;
+}
+#c{ color: red;
+    text-align: center;}
+    a:link,a:hover,a:visited,a:active{
+        text-decoration: none;
+        color: white;
+    }
+    #d{text-align: center;}
+tr{
+    text-align: center;
+}
+p{
+   
+    font-size: 16px;
+}
+#a1{text-indent: 2em;text-align: left;}
+#b{color: red;}
+#m{align="right" ;background-color: aqua;}
+#nav{
+    text-align: center;
+    width: 120px;
+}
+

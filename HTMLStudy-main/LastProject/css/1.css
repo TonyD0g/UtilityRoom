@@ -1,0 +1,41 @@
+.text-link-wrap {
+    margin-bottom: 10px
+  }
+  .main .content {
+      width: 1000px;
+      padding: 0 19px 20px;
+      border: 1px solid #c9c9c9;
+      background: #fff
+    }
+    .gclearfix:after {
+      display: block;
+      clear: both;
+      visibility: hidden;
+      height: 0;
+      content: ''
+    }
+    a {
+      color: #333
+    }
+    .main h2 {
+      display: inline-block;
+      _zoom: 1;
+      *display: inline;
+      padding: 20px 10px 11px;
+      font-size: 16px;
+      color: #333;
+      line-height: 16px;
+      border-bottom: 3px solid #42ab22
+    }
+    .text-link-wrap ul li {
+      width: 125px;
+      padding-left: 15px;
+      margin-top: 20px;
+      float: left;
+      list-style: none;
+      overflow: hidden;
+      text-align: left;
+      font-size: 14px;
+      line-height: 14px;
+      color: #333
+    }

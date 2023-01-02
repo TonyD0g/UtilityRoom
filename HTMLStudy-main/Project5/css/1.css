@@ -1,0 +1,88 @@
+.Timetablen {
+    margin: 10px auto;
+    max-width: 500px;
+    background: #F8F8F8;
+    padding: 30px 30px 20px;
+    font: 12px Arial, Helvetica, sans-serif;
+    color: #666;
+    border-radius: 5px;
+}
+
+
+.Timetablen h1>span {
+    display: block;
+    font-size: 11px;
+    color: #FFF;
+}
+
+.Timetablen .button:hover {
+    background-color: #80A24A;
+}
+
+
+
+.Timetablen label {
+    display: block;
+    margin: 0px 0px 5px;
+}
+
+.Timetablen label>span {
+    float: left;
+    margin-top: 10px;
+    color: #5E5E5E;
+}
+
+.Timetablen input[type="text"],
+input[type="number"],
+.Timetablen input[type="email"],
+.Timetablen textarea,
+.Timetablen select {
+    color: #555;
+    height: 30px;
+    line-height: 15px;
+    width: 100%;
+    background: #FBFBFB;
+    outline-style: none;
+    border: 1px solid #E5E5E5;
+    box-shadow: inset 1px 1px 2px rgba(238, 238, 238, 0.2);
+    font: normal 14px/14px Arial, Helvetica, sans-serif;
+    padding: 0px 0px 0px 10px;
+    margin-top: 2px;
+}
+
+.Timetablen h1 {
+    font: 24px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    padding: 20px 0px 20px 40px;
+    margin: -30px -30px 10px;
+    color: #FFF;
+    background: #9DC45F;
+    text-shadow: 1px 1px 1px #949494;
+    border-radius: 5px 5px 0px 0px;
+    border-bottom: 1px solid #89AF4C;
+}
+
+
+
+.Timetablen .button {
+    background-color: #9DC45F;
+    border-radius: 5px;
+    border: none;
+    padding: 10px 25px;
+    color: #FFF;
+    text-shadow: 1px 1px 1px #949494;
+}
+
+
+.success-msg {
+    color: #80A24A;
+    margin-top: 10px 0px;
+}
+
+#t1 {
+    text-align: center;
+}
+
+.Timetablen textarea {
+    height: 100px;
+    padding-top: 10px;
+}

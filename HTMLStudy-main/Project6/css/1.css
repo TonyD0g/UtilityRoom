@@ -1,0 +1,78 @@
+#menu{
+	/*定义外层图层样式*/
+	padding-left: 100px;
+	margin: 0 auto;
+	text-align: center;
+	width: 100%;
+	height: 60px;
+	background: #55AAEE;
+	border: 1px solid #333333;
+}
+#menu ul{
+	margin: 0px;padding:0px;
+}
+.SonMenu{
+	width: 900px;
+	height: 28px;
+	text-align: center;
+}
+#menu ul li{
+	height: 30px;
+	width: 115px;
+	list-style: none;
+	float: left;
+	display: inline;
+	font: 0.9em arial, helvetica, sans-serif;
+	text-align: center;
+}
+ul li a{
+	color: #fff;
+	width: 114px;
+	margin: 0px;
+	padding: 0px,0px,0px,8px;
+	text-decoration: none;
+	display: block;
+	background: #55a0ff;
+	line-height: 29px;
+	border-bottom: 1px solid #ccc;
+}
+ul li .SonMenu ul li{
+	height: 25px;
+}
+ul li .SonMenu ul li a{
+	background: #55aaee;
+	line-height: 24px;
+}
+ul li a:hover{
+	background: #666;
+	border-bottom: 1px dashed #ff0000;
+}
+ul li .SonMenu{
+	display: none;
+}
+.SonMenu ul li{
+	height: 24px;
+	width: 113px;
+	list-style: none;
+	float: left;
+	display: inline;
+	font: 0.8em "arial, helvetica, sans-serif";
+	text-align: center;
+}
+ul li:hover .SonMenu{
+	display: block;
+}
+ul li .SonMenu ul li a:hover{
+	background: #333;
+}
+.down{ /* 下拉菜单边框颜色*/
+     font-size: 14px;
+  text-decoration: none;
+  color: #fff;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #222;
+  justify-content: center;
+}
+
