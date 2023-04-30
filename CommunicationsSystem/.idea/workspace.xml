@@ -29,22 +29,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "D:/Coding/C/UtilityRoom/CommunicationsSystem",
-    "project.structure.last.edited": "模块",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.12873563"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Coding/C/UtilityRoom/CommunicationsSystem/lib/mysql-connector-java-5.1.39-bin.jar&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.12873563&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Coding\C\UtilityRoom\CommunicationsSystem\lib" />
       <recent name="D:\Coding\CommunicationsSystem\src\main\java\org\sec\Utils" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.Client">
+  <component name="RunManager" selected="应用程序.Server">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.sec.Communications.Client" />
       <module name="CommunicationsSystem" />
@@ -93,6 +94,11 @@
       <workItem from="1682648131901" duration="2683000" />
       <workItem from="1682748325117" duration="22675000" />
       <workItem from="1682773888713" duration="86000" />
+      <workItem from="1682775155299" duration="48000" />
+      <workItem from="1682835349363" duration="2000" />
+      <workItem from="1682835359124" duration="10795000" />
+      <workItem from="1682852388763" duration="29000" />
+      <workItem from="1682852826668" duration="7391000" />
     </task>
     <servers />
   </component>

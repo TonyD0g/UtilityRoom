@@ -44,9 +44,9 @@ public class FileUtils {
     }
 
     /**
-     * 将多行写到文件
+     * 将多行写到文件,再次使用该函数会清空文件中的内容
      */
-    public static void writeLines(String filepath, List<String> lines) {
+    public static void writeLines(String filepath, List<String> lines, boolean append) {
         if (lines == null || lines.size() < 1) return;
 
         File file = new File(filepath);
@@ -58,7 +58,11 @@ public class FileUtils {
         BufferedWriter bufferedWriter = null;
 
         try {
-            out = new FileOutputStream(file);
+            if (append) {
+                out = new FileOutputStream(file, true);
+            } else {
+                out = new FileOutputStream(file);
+            }
             writer = new OutputStreamWriter(out, StandardCharsets.UTF_8);
             bufferedWriter = new BufferedWriter(writer);
 
