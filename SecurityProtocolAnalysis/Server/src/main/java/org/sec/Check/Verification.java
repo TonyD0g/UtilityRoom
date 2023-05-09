@@ -2,6 +2,7 @@ package org.sec.Check;
 
 import javafx.scene.control.TextArea;
 import org.sec.Controller.ServerController;
+import org.sec.Main;
 
 import java.lang.reflect.Field;
 import java.sql.*;
@@ -15,11 +16,16 @@ public class Verification {
     public static String mysqlPassword = "4GzoqKF1vwqsHndT";
     public static Connection connection;
 
+    public static void main(String[] args) throws SQLException {
+        openConnection();
+        closeConnection();
+    }
+
     public static Object getField(String fieldName) throws ClassNotFoundException, NoSuchFieldException, InstantiationException, IllegalAccessException {
         Class clazz = Class.forName("org.sec.Controller.ServerController");
-        Field field =  clazz.getField(fieldName);
+        Field field =  clazz.getDeclaredField(fieldName);
         field.setAccessible(true);
-        return field.get(clazz.newInstance());
+        return field.get(Main.controller);
     }
 
     public static void deleteUser(String username) throws SQLException, NoSuchFieldException, ClassNotFoundException, InstantiationException, IllegalAccessException {

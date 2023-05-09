@@ -1,17 +1,14 @@
 package org.sec.Communications;
 
-
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import org.sec.Check.Verification;
 import org.sec.Utils.FileUtils;
 import org.sec.Utils.RSAUtil;
 import org.sec.Utils.stringUtils;
 
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -24,16 +21,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public class Server extends Application {
-    public static void main(String args[]) throws Exception {
-        launch(args);
+public class Server extends Thread {
+
+    public static void main(String[] args) {
+        connect(2333);
     }
-
-
 
     public static void connect(int port) {
         try {
-            Thread t = new Thread();
+            Thread t = new Server(port);
             createKey(".\\ServerKey.txt"); // 查看是否已经生成公私钥,没有则生成
             t.run();
         } catch (IOException e) {
@@ -63,12 +59,16 @@ public class Server extends Application {
                 if (safeDefender(inetAddress)) {
                     out.writeUTF("[-] 警告,请不要暴力破解!或者请您好好想想密码,请十分钟后再试");
                     break;
+                } else {
+                    out.writeUTF("[+] 你已连接远程服务器,远程服务器正在检测资格: " + server.getLocalSocketAddress()); // 发送信息给Client
                 }
-                out.writeUTF("[+] 你已连接远程服务器,远程服务器正在检测资格: " + server.getLocalSocketAddress()); // 发送信息给Client
                 List<String> ServerKey = FileUtils.readLines(".\\ServerKey.txt", String.valueOf(StandardCharsets.UTF_8));
 
-                // 发送服务器公钥给客户端,用于给客户端去加密数据
-                out.writeUTF(ServerKey.get(0));
+
+                if (ServerKey != null) {
+                    // 发送服务器公钥给客户端,用于给客户端去加密数据
+                    out.writeUTF(ServerKey.get(0));
+                }
                 communication(inetAddress, ServerKey, server, in, out);
                 try {
                     Verification.closeConnection();
@@ -80,10 +80,10 @@ public class Server extends Application {
             } catch (SocketTimeoutException s) {
                 System.out.println("Socket timed out!");
                 break;
-            } catch (IOException | SQLException e) {
+            } catch (IOException | SQLException | ParseException | IllegalAccessException | InstantiationException |
+                     ClassNotFoundException | NoSuchFieldException e) {
+                e.printStackTrace();
                 break;
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
             }
         }
     }
@@ -107,7 +107,7 @@ public class Server extends Application {
     /**
      * 通讯模块
      */
-    public static void communication(String inetAddress, List<String> ServerKey, Socket server, DataInputStream in, DataOutputStream out) throws IOException {
+    public static void communication(String inetAddress, List<String> ServerKey, Socket server, DataInputStream in, DataOutputStream out) throws IOException, NoSuchFieldException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         // 读取账号密码,并查看服务端数据库是否存在该用户,存在则继续,否则结束
         Verification.openConnection();
         try {
@@ -115,13 +115,16 @@ public class Server extends Application {
             String[] userInfo = stringUtils.splitBySymbol(RSAUtil.decrypt(input, ServerKey.get(1)), " ");
             if (Verification.checkUserAndPass(userInfo[0], userInfo[1])) {
                 Verification.deleteIp(inetAddress); // 验证成功,即把登录失败IP名单中的该项删除
-
                 out.writeUTF("[+] 服务端接受请求,正在建立通讯连接~");
+                out.flush();
+                String clientPublicKey = RSAUtil.decrypt(in.readUTF(),ServerKey.get(1));   // 读取客户端的公钥
                 System.out.println("-------------------------------------\n服务端:");
                 while (true) {
                     input = in.readUTF();
                     String decryptText = RSAUtil.decrypt(input, ServerKey.get(1));
                     System.out.println("[+] " + thisTime() + " 客户端发来消息: " + decryptText);
+                    // 将数据回传给Client端
+                    out.writeUTF(RSAUtil.encrypt(decryptText, clientPublicKey));
                 }
 
             } else {
@@ -132,7 +135,7 @@ public class Server extends Application {
         } catch (SQLException e) {
             System.out.println("-------------------------------------");
             server.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -140,7 +143,7 @@ public class Server extends Application {
     /**
      * 防止暴力破解
      */
-    public static boolean safeDefender(String inetAddress) throws IOException, SQLException, ParseException {
+    public static boolean safeDefender(String inetAddress) throws IOException, SQLException, ParseException, NoSuchFieldException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         Verification.openConnection();
 
         String blockTime = Verification.getTime(inetAddress);
@@ -194,12 +197,5 @@ public class Server extends Application {
         minutes = minutes * 60 * 1000;
         Date afterDate = new Date(thisTime.getTime() + minutes);//30分钟后的时间
         return dateFormat.format(afterDate);
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("Server.fxml"));
-        primaryStage.setScene(new Scene(root, 700, 575));
-        primaryStage.show();
     }
 }

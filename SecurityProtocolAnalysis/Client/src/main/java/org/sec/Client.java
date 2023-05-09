@@ -1,27 +1,29 @@
 package org.sec;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
-import javafx.stage.Stage;
 import org.sec.Utils.RSAUtil;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.net.Socket;
+import java.security.InvalidKeyException;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Client  {
+    public static Cipher cipher;
     public static Object getField(String fieldName) throws ClassNotFoundException, NoSuchFieldException, InstantiationException, IllegalAccessException {
         Class clazz = Class.forName("org.sec.Controller.ClientController");
-        Field field =  clazz.getField(fieldName);
+        Field field =  clazz.getDeclaredField(fieldName);
         field.setAccessible(true);
-        return field.get(clazz.newInstance());
+        return field.get(Main.controller);
     }
     public static void connect(String serverName, int port, String username, String password) throws IOException, NoSuchFieldException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         Socket client = null;
@@ -50,6 +52,14 @@ public class Client  {
                 return;
             }
 
+            // todo 服务端发送aes密钥(aes密钥使用rsa加密),用于回传加密
+            String aesKey = RSAUtil.decrypt(in.readUTF(),serverPublicKey);
+            // 将字符串转换回密钥
+            byte[] keyBytes = Base64.getDecoder().decode(aesKey);
+            SecretKey secretKey = new SecretKeySpec(keyBytes, "AES");
+            cipher.init(Cipher.DECRYPT_MODE, secretKey); // 创建解密器
+            byte[] bys = new byte[1024];
+
             print.appendText("-------------------------------------\n客户端:(输入exit断开会话)");
             while (true) {
                 text = sc.next();
@@ -59,11 +69,19 @@ public class Client  {
                 if (text.equals("exit")) {
                     break;
                 } else {
+                    // 客户端发送消息
                     out.writeUTF(RSAUtil.encrypt(text, serverPublicKey));
+                    // Client显示接收到Server的数据
+                    in.read(bys);
+                    byte[] decrypted = cipher.doFinal(bys);
+                    print.appendText("服务器回传： " + new String(decrypted));
+
                 }
             }
             print.appendText("-------------------------------------");
         } catch (IOException ignored) {
+        } catch (IllegalBlockSizeException | BadPaddingException | InvalidKeyException e) {
+            throw new RuntimeException(e);
         } finally {
             client.close();
         }

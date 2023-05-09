@@ -2,11 +2,13 @@ package org.sec;
 
 import javafx.scene.control.TextArea;
 import org.sec.Check.Verification;
-import org.sec.Controller.ServerController;
+import org.sec.Utils.AESUtil;
 import org.sec.Utils.FileUtils;
 import org.sec.Utils.RSAUtil;
 import org.sec.Utils.stringUtils;
 
+import javax.crypto.*;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -15,17 +17,19 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.sec.Check.Verification.getField;
 
-public class Server extends Thread{
+public class Server extends Thread {
+    public static String aesKey;
+    public static Cipher cipher;
+
     public static void connect(int port) {
         try {
             Thread t = new Server(port);
@@ -65,7 +69,14 @@ public class Server extends Thread{
                 List<String> ServerKey = FileUtils.readLines(".\\ServerKey.txt", String.valueOf(StandardCharsets.UTF_8));
 
                 // 发送服务器公钥给客户端,用于给客户端去加密数据
-                out.writeUTF(ServerKey.get(0));
+                if (ServerKey != null) {
+                    out.writeUTF(ServerKey.get(0));
+                    aesKey = AESUtil.getAesKey();
+                    byte[] keyBytes = Base64.getDecoder().decode(aesKey);
+                    SecretKey secretKey = new SecretKeySpec(keyBytes, "AES");
+                    cipher = AESUtil.getEncryptInstance(secretKey);
+                    out.writeUTF(RSAUtil.encrypt(aesKey, ServerKey.get(0)));
+                }
                 communication(inetAddress, ServerKey, server, in, out);
                 try {
                     Verification.closeConnection();
@@ -75,20 +86,15 @@ public class Server extends Thread{
                 break;
 
             } catch (SocketTimeoutException s) {
-                print.appendText("Socket timed out!");
+                if (print != null) {
+                    print.appendText("Socket timed out!");
+                }
                 break;
             } catch (IOException | SQLException e) {
                 break;
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            } catch (NoSuchFieldException e) {
-                throw new RuntimeException(e);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (InstantiationException e) {
-                throw new RuntimeException(e);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
+            } catch (ParseException | IllegalAccessException | InstantiationException | ClassNotFoundException |
+                     NoSuchFieldException | NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -128,6 +134,8 @@ public class Server extends Thread{
                     input = in.readUTF();
                     String decryptText = RSAUtil.decrypt(input, ServerKey.get(1));
                     print.appendText("[+] " + thisTime() + " 客户端发来消息: " + decryptText);
+                    // 将数据回传给Client端
+                    out.write(AESUtil.encrypt(cipher, decryptText));
                 }
 
             } else {
@@ -138,15 +146,8 @@ public class Server extends Thread{
         } catch (SQLException e) {
             print.appendText("-------------------------------------");
             server.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
+        } catch (IOException | NoSuchFieldException | ClassNotFoundException | InstantiationException |
+                 IllegalAccessException | IllegalBlockSizeException | BadPaddingException e) {
             throw new RuntimeException(e);
         }
     }

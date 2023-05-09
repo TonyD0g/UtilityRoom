@@ -33,22 +33,44 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "D:/Coding/C/UtilityRoom/SecurityProtocolAnalysis/Client",
-    "project.structure.last.edited": "工件",
+    "extract.method.default.visibility": "private",
+    "last_opened_file_path": "D:/Soft1/mysql-connector-java-5.1.39-bin.jar",
+    "project.structure.last.edited": "库",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.12873563",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Coding\C\UtilityRoom\SecurityProtocolAnalysis\CommunicationsSystem\src\main\java\org\sec" />
+      <recent name="D:\Coding\C\UtilityRoom\SecurityProtocolAnalysis\CommunicationsSystem\src\main\java\org\sec\Utils" />
+      <recent name="D:\Coding\C\UtilityRoom\SecurityProtocolAnalysis\CommunicationsSystem\src\main\resources" />
+      <recent name="D:\Coding\C\UtilityRoom\SecurityProtocolAnalysis\CommunicationsSystem" />
       <recent name="D:\Coding\C\UtilityRoom\SecurityProtocolAnalysis\Server\src\main\java\org\sec" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Coding\C\UtilityRoom\SecurityProtocolAnalysis\Server\src\main\resources" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.sec.Communications" />
+    </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="应用程序.Server">
+    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.sec.Communications.Client" />
+      <module name="CommunicationsSystem" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.sec.Main" />
+      <module name="Client" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.sec.Main" />
       <module name="Server" />
@@ -63,9 +85,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="RSAExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Utils.RSAExample" />
+      <module name="CommunicationsSystem" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.sec.Communications.Server" />
+      <module name="CommunicationsSystem" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="应用程序.Main" />
+        <item itemvalue="应用程序.Client" />
+        <item itemvalue="应用程序.Server" />
+        <item itemvalue="应用程序.RSAExample" />
+        <item itemvalue="应用程序.Main (1)" />
         <item itemvalue="应用程序.Main" />
       </list>
     </recent_temporary>
@@ -82,6 +121,15 @@
       <workItem from="1682927445567" duration="123000" />
       <workItem from="1682927601236" duration="1369000" />
       <workItem from="1682928979057" duration="895000" />
+      <workItem from="1683194496058" duration="5429000" />
+      <workItem from="1683200362800" duration="57000" />
+      <workItem from="1683200448587" duration="145000" />
+      <workItem from="1683200633952" duration="68000" />
+      <workItem from="1683200762944" duration="115000" />
+      <workItem from="1683463044537" duration="357000" />
+      <workItem from="1683500974784" duration="4194000" />
+      <workItem from="1683505260126" duration="16145000" />
+      <workItem from="1683614666597" duration="5173000" />
     </task>
     <servers />
   </component>
@@ -89,14 +137,34 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/sec/Controller/ServerController.java</url>
-          <line>71</line>
-          <option name="timeStamp" value="3" />
+          <url>file://$PROJECT_DIR$/src/main/java/org/sec/Check/Verification.java</url>
+          <line>62</line>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/../Client/src/main/java/org/sec/Client.java</url>
-          <line>26</line>
-          <option name="timeStamp" value="4" />
+          <line>45</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/../Client/src/main/java/org/sec/Client.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/sec/Server.java</url>
+          <line>79</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/../CommunicationsSystem/src/main/java/org/sec/Communications/Client.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/../CommunicationsSystem/src/main/java/org/sec/Utils/AESUtil.java</url>
+          <line>38</line>
+          <option name="timeStamp" value="40" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

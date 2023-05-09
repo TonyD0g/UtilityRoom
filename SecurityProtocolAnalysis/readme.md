@@ -15,3 +15,6 @@
 
 - 添加用户/删除用户(涉及数据库操作)
 - JavaFx图形界面
+- Server端接受数据之后将数据发送给Client端,Client显示接收到Server的数据。 (全部采用rsa实现) 
+- 完整性校验方法。	(发的和收的使用md5校验) 
+- 实现ClientA与ClientB通过Server进行安全聊天功能。 (使用server进行转发,多线程同时接受两个socket)

@@ -1,4 +1,4 @@
-package org.sec.Utils;
+package Utils;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
