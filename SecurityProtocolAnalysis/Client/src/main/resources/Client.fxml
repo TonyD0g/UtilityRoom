@@ -18,5 +18,7 @@
       <TextField fx:id="UsernamePassword" layoutX="12.0" layoutY="101.0" promptText="Username Password" />
       <TextArea fx:id="print" layoutX="13.0" layoutY="142.0" prefHeight="244.0" prefWidth="561.0" />
       <Text layoutX="22.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author: TonyD0g" />
+      <Button fx:id="SendMsg" layoutX="481.0" layoutY="101.0" mnemonicParsing="false" onAction="#sendMsg" text="SendMsg" />
+      <TextField fx:id="msg" layoutX="313.0" layoutY="101.0" promptText="msg" />
    </children>
 </AnchorPane>

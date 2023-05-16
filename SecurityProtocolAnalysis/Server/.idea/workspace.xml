@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Client:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
@@ -29,25 +34,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "extract.method.default.visibility": "private",
-    "last_opened_file_path": "D:/Soft1/mysql-connector-java-5.1.39-bin.jar",
-    "project.structure.last.edited": "库",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.12873563",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Coding/C/UtilityRoom/SecurityProtocolAnalysis/Client&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.12873563&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Coding\C\UtilityRoom\SecurityProtocolAnalysis\Client" />
       <recent name="D:\Coding\C\UtilityRoom\SecurityProtocolAnalysis\CommunicationsSystem\src\main\java\org\sec" />
       <recent name="D:\Coding\C\UtilityRoom\SecurityProtocolAnalysis\CommunicationsSystem\src\main\java\org\sec\Utils" />
       <recent name="D:\Coding\C\UtilityRoom\SecurityProtocolAnalysis\CommunicationsSystem\src\main\resources" />
       <recent name="D:\Coding\C\UtilityRoom\SecurityProtocolAnalysis\CommunicationsSystem" />
-      <recent name="D:\Coding\C\UtilityRoom\SecurityProtocolAnalysis\Server\src\main\java\org\sec" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Coding\C\UtilityRoom\SecurityProtocolAnalysis\Server\src\main\resources" />
@@ -56,7 +61,7 @@
       <recent name="org.sec.Communications" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.Server">
+  <component name="RunManager" selected="应用程序.Main">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.sec.Communications.Client" />
       <module name="CommunicationsSystem" />
@@ -101,11 +106,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="应用程序.Main" />
+        <item itemvalue="应用程序.Main (1)" />
         <item itemvalue="应用程序.Client" />
         <item itemvalue="应用程序.Server" />
         <item itemvalue="应用程序.RSAExample" />
-        <item itemvalue="应用程序.Main (1)" />
-        <item itemvalue="应用程序.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -129,9 +134,28 @@
       <workItem from="1683463044537" duration="357000" />
       <workItem from="1683500974784" duration="4194000" />
       <workItem from="1683505260126" duration="16145000" />
-      <workItem from="1683614666597" duration="5173000" />
+      <workItem from="1683614666597" duration="6789000" />
+      <workItem from="1683630668966" duration="1808000" />
+      <workItem from="1684046017474" duration="77000" />
+      <workItem from="1684046159059" duration="1108000" />
+      <workItem from="1684047571080" duration="51000" />
+      <workItem from="1684047630642" duration="51000" />
+      <workItem from="1684047689586" duration="43000" />
+      <workItem from="1684047738630" duration="16000" />
+      <workItem from="1684047855696" duration="359000" />
+      <workItem from="1684048329309" duration="1223000" />
+      <workItem from="1684054696838" duration="453000" />
+      <workItem from="1684110053203" duration="349000" />
+      <workItem from="1684110665746" duration="71000" />
+      <workItem from="1684110743652" duration="102000" />
+      <workItem from="1684110851933" duration="495000" />
+      <workItem from="1684199763203" duration="40000" />
+      <workItem from="1684199811905" duration="557000" />
     </task>
     <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="java:com.google.protobuf:protobuf-java" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -153,18 +177,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/sec/Server.java</url>
-          <line>79</line>
+          <line>77</line>
           <option name="timeStamp" value="24" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/../CommunicationsSystem/src/main/java/org/sec/Communications/Client.java</url>
-          <line>49</line>
+          <line>89</line>
           <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/../CommunicationsSystem/src/main/java/org/sec/Utils/AESUtil.java</url>
           <line>38</line>
           <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/sec/Server.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="41" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

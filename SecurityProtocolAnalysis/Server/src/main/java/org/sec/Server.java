@@ -1,14 +1,12 @@
 package org.sec;
 
+import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 import org.sec.Check.Verification;
-import org.sec.Utils.AESUtil;
 import org.sec.Utils.FileUtils;
 import org.sec.Utils.RSAUtil;
 import org.sec.Utils.stringUtils;
 
-import javax.crypto.*;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -17,27 +15,31 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.nio.charset.StandardCharsets;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import static org.sec.Check.Verification.getField;
 
-public class Server extends Thread {
-    public static String aesKey;
-    public static Cipher cipher;
+public class Server extends Thread implements Runnable {
+    public static String input;
+    public static List<String> ServerKey;
+    public static String clientPublicKey;
+    public static TextArea print = null;
+    public static DataInputStream in;
+    public static DataOutputStream out;
 
     public static void connect(int port) {
         try {
             Thread t = new Server(port);
             createKey(".\\ServerKey.txt"); // 查看是否已经生成公私钥,没有则生成
             t.run();
-        } catch (IOException e) {
+        }  catch (Exception e) {
             e.printStackTrace();
-        } catch (Exception ignored) {
         }
     }
 
@@ -51,33 +53,29 @@ public class Server extends Thread {
     public void run() {
         while (true) {
             Socket server;
-            TextArea print = null;
             try {
                 server = serverSocket.accept();
                 print = (TextArea) getField("print");
-                print.appendText("等待远程连接，端口号为：" + serverSocket.getLocalPort() + "...");
+                print.appendText("等待远程连接，端口号为：" + serverSocket.getLocalPort() + "..." + "\n");
                 String inetAddress = String.valueOf(server.getInetAddress());
                 inetAddress = inetAddress.substring(1);
-                print.appendText("远程主机地址：" + server.getRemoteSocketAddress());
-                DataInputStream in = new DataInputStream(server.getInputStream());
-                DataOutputStream out = new DataOutputStream(server.getOutputStream());
+                TextArea finalPrint = print;
+                Platform.runLater(() -> finalPrint.appendText("远程主机地址：" + server.getRemoteSocketAddress() + "\n"));
+
+                in = new DataInputStream(server.getInputStream());
+                out = new DataOutputStream(server.getOutputStream());
                 if (safeDefender(inetAddress)) {
-                    out.writeUTF("[-] 警告,请不要暴力破解!或者请您好好想想密码,请十分钟后再试");
+                    out.writeUTF("[-] 警告,请不要暴力破解!或者请您好好想想密码,请十分钟后再试\n");
                     break;
                 }
-                out.writeUTF("[+] 你已连接远程服务器,远程服务器正在检测资格: " + server.getLocalSocketAddress()); // 发送信息给Client
-                List<String> ServerKey = FileUtils.readLines(".\\ServerKey.txt", String.valueOf(StandardCharsets.UTF_8));
+                out.writeUTF("[+] 你已连接远程服务器,远程服务器正在检测资格: " + server.getLocalSocketAddress() + "\n"); // 发送信息给Client
+                ServerKey = FileUtils.readLines(".\\ServerKey.txt", String.valueOf(StandardCharsets.UTF_8));
 
                 // 发送服务器公钥给客户端,用于给客户端去加密数据
                 if (ServerKey != null) {
                     out.writeUTF(ServerKey.get(0));
-                    aesKey = AESUtil.getAesKey();
-                    byte[] keyBytes = Base64.getDecoder().decode(aesKey);
-                    SecretKey secretKey = new SecretKeySpec(keyBytes, "AES");
-                    cipher = AESUtil.getEncryptInstance(secretKey);
-                    out.writeUTF(RSAUtil.encrypt(aesKey, ServerKey.get(0)));
                 }
-                communication(inetAddress, ServerKey, server, in, out);
+                communication(inetAddress, ServerKey, server);
                 try {
                     Verification.closeConnection();
                 } catch (SQLException e) {
@@ -93,7 +91,7 @@ public class Server extends Thread {
             } catch (IOException | SQLException e) {
                 break;
             } catch (ParseException | IllegalAccessException | InstantiationException | ClassNotFoundException |
-                     NoSuchFieldException | NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException e) {
+                     NoSuchFieldException e) {
                 e.printStackTrace();
             }
         }
@@ -118,36 +116,58 @@ public class Server extends Thread {
     /**
      * 通讯模块
      */
-    public static void communication(String inetAddress, List<String> ServerKey, Socket server, DataInputStream in, DataOutputStream out) throws IOException, NoSuchFieldException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public void communication(String inetAddress, List<String> ServerKey, Socket server) throws IOException, NoSuchFieldException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         TextArea print = (TextArea) getField("print");
         // 读取账号密码,并查看服务端数据库是否存在该用户,存在则继续,否则结束
         Verification.openConnection();
         try {
-            String input = in.readUTF();
+            input = in.readUTF();
             String[] userInfo = stringUtils.splitBySymbol(RSAUtil.decrypt(input, ServerKey.get(1)), " ");
             if (Verification.checkUserAndPass(userInfo[0], userInfo[1])) {
-                Verification.deleteIp(inetAddress); // 验证成功,即把登录失败IP名单中的该项删除
+                Verification.deleteIp(inetAddress); // 验证成功,即把登录失败IP名单中的该项删除z
+                out.writeUTF("\n[+] 服务端接受请求,正在建立通讯连接~" + "\n");
+                out.flush();
+                clientPublicKey = RSAUtil.decrypt(in.readUTF(), ServerKey.get(1));   // 读取客户端的公钥
 
-                out.writeUTF("[+] 服务端接受请求,正在建立通讯连接~");
-                print.appendText("-------------------------------------\n服务端:");
+                Platform.runLater(() -> print.appendText("\n-------------------------------------\n服务端:" + "\n"));
+
                 while (true) {
-                    input = in.readUTF();
-                    String decryptText = RSAUtil.decrypt(input, ServerKey.get(1));
-                    print.appendText("[+] " + thisTime() + " 客户端发来消息: " + decryptText);
-                    // 将数据回传给Client端
-                    out.write(AESUtil.encrypt(cipher, decryptText));
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        input = in.readUTF();
+                        String decryptText = null;
+                        try {
+                            decryptText = RSAUtil.decrypt(input, ServerKey.get(1));
+                        } catch (Exception ignored) {
+
+                        }
+                        String finalDecryptText = decryptText;
+                        //System.out.println(finalDecryptText);
+                        Platform.runLater(() -> print.appendText("[+] " + thisTime() + " 客户端发来消息: " + finalDecryptText + "\n"));
+                        // 将数据回传给Client端
+                        try {
+                            out.writeUTF(RSAUtil.encrypt(decryptText, clientPublicKey));
+                        } catch (Exception ignored) {
+                        }
+                    } catch (IOException ignored) {
+
+                    }
+
                 }
 
             } else {
                 Verification.addIp(inetAddress, thisTime()); // 登录失败时,将此IP记录到数据库中
                 Verification.addNumber(inetAddress); // 登录失败时,登录失败次数+1
-                out.writeUTF("[-] 服务端拒绝了您的请求,请检查您是否为服务端白名单用户且账号密码是否输入正确");
+                out.writeUTF("[-] 服务端拒绝了您的请求,请检查您是否为服务端白名单用户且账号密码是否输入正确" + "\n");
             }
         } catch (SQLException e) {
-            print.appendText("-------------------------------------");
+            Platform.runLater(() -> print.appendText("\n-------------------------------------" + "\n"));
             server.close();
-        } catch (IOException | NoSuchFieldException | ClassNotFoundException | InstantiationException |
-                 IllegalAccessException | IllegalBlockSizeException | BadPaddingException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
