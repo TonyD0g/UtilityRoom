@@ -130,3 +130,5 @@ bing搜索搜狗输入法（怕它监听信息就使用网络软件禁止它访�
 
 https://maczip.cn/?locale=zh-CN
 
+## 下载软件推荐
+https://www.freedownloadmanager.org/zh/
