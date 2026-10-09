@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- net10.0 (platform-neutral) is what ATAS X itself targets on every OS.
+         The original "net10.0-windows" + UseWPF pair existed only to pull
+         System.Drawing in via the Windows Desktop framework, which made the
+         project Windows-build-only; the explicit reference below replaces it. -->
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <AssemblyName>GexLevels</AssemblyName>
+    <RootNamespace>GexLevels</RootNamespace>
+    <Version>0.2.1</Version>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+  </PropertyGroup>
+
+  <!-- Where the ATAS X reference assemblies live. ATAS ships its own copies of
+       these, so they must never be copied next to our output (Private=false).
+       Override when building elsewhere:
+         dotnet build -p:AtasDir="/path/to/ATAS X" -->
+  <PropertyGroup Condition="'$(AtasDir)' == ''">
+    <AtasDir Condition="$([MSBuild]::IsOSPlatform('OSX'))">/Applications/ATAS X.app/Contents/MonoBundle</AtasDir>
+    <AtasDir Condition="$([MSBuild]::IsOSPlatform('Windows'))">d:\application\ATAS X</AtasDir>
+    <AtasDir Condition="!$([MSBuild]::IsOSPlatform('OSX')) And !$([MSBuild]::IsOSPlatform('Windows'))">/Applications/ATAS X.app/Contents/MonoBundle</AtasDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="ATAS.Indicators">
+      <HintPath>$(AtasDir)/ATAS.Indicators.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Avalonia.Base">
+      <HintPath>$(AtasDir)/Avalonia.Base.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="OFT.Rendering">
+      <HintPath>$(AtasDir)/OFT.Rendering.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>$(AtasDir)/Newtonsoft.Json.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="System.Drawing.Common">
+      <HintPath>$(AtasDir)/System.Drawing.Common.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>
